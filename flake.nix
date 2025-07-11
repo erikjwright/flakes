@@ -3,15 +3,14 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    flake-parts.url = "github:hercules-ci/flake-parts";
     flake-utils.url = "github:numtide/flake-utils";
+    flake-parts.url = "github:hercules-ci/flake-parts";
     mcp-hub.url = "github:ravitemer/mcp-hub";
   };
 
   outputs =
     inputs@{ flake-parts, ... }:
-    flake-parts.lib.mkFlake {
-      inherit inputs;
+    flake-parts.lib.mkFlake { inherit inputs; } {
 
       systems = [
         "aarch64-darwin"
@@ -23,20 +22,13 @@
       ];
 
       perSystem =
-        {
-          config,
-          self',
-          inputs',
-          pkgs,
-          system,
-          ...
-        }:
+        { pkgs, ... }:
         {
           devShells.default = pkgs.mkShell {
             buildInputs = [
-              pkgs.nixfmt-rfc-style
               pkgs.git
               pkgs.direnv
+              pkgs.nixfmt-rfc-style
             ];
           };
         };
