@@ -4,11 +4,12 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
+    ts.url = "path:./ts";
   };
 
   outputs =
-    { self, ... }:
+    { self, ts, ... }:
     {
-      ts = builtins.getFlake (toString ./ts);
+      ts = ts;
     };
 }
