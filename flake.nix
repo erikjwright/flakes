@@ -9,8 +9,9 @@
   };
 
   outputs =
-    inputs@{ flake-parts, ... }:
-    flake-parts.lib.mkFlake { inherit inputs; } {
+    inputs:
+    inputs.flake-parts.lib.mkFlake {
+      inherit inputs;
 
       systems = [
         "aarch64-darwin"
@@ -18,7 +19,7 @@
       ];
 
       imports = [
-        ./modules/ts/module.nix
+        ./ts/module.nix
       ];
 
       perSystem =
@@ -26,19 +27,17 @@
         {
           devShells.default = pkgs.mkShell {
             buildInputs = [
+              pkgs.nixfmt-rfc-style
               pkgs.git
               pkgs.direnv
-              pkgs.nixfmt-rfc-style
             ];
           };
         };
 
       flake = {
-        templates = {
-          ts = {
-            path = ./ts;
-            description = "TS dev shell with bun, uv, git, nixfmt";
-          };
+        templates.ts = {
+          path = ./ts;
+          description = "TS dev shell with bun, uv, git, nixfmt";
         };
       };
     };
