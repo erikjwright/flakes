@@ -10,7 +10,7 @@
 
   outputs =
     inputs@{ flake-parts, ... }:
-    flake-parts.outputs.mkFlake {
+    flake-parts.lib.mkFlake {
       inherit inputs;
 
       systems = [
