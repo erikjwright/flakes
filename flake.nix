@@ -9,6 +9,6 @@
   outputs =
     { self, ... }:
     {
-      ts = import ./ts;
+      ts = builtins.getFlake (toString ./ts);
     };
 }
